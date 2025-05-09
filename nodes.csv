@@ -1,0 +1,31 @@
+id,type,fields,subtype,label,parent_component,target_entity,name,role_visibility,parent_view
+entity_267727,entity,['field_0'],,,,,,,
+uielement_b98415,uielement,,dropdown,Dropdown 7,,,,,
+action_6654f1,action,,,Action 30,,entity_267727,,,
+uielement_2ea124,uielement,,input,Input 63,,,,,
+view_3ce667,view,,,,,,View 85,['finance'],
+component_f9eda4,component,,,,,,Component 67,,view_3ce667
+action_be17c9,action,,,Action 83,,entity_267727,,,
+uielement_dc01e6,uielement,,button,Button 76,component_f9eda4,,,,
+view_ff58af,view,,,,,,View 89,"['sales', 'admin']",
+action_e83954,action,,,Action 31,,entity_267727,,,
+view_43af01,view,,,,,,View 96,"['finance', 'sales']",
+entity_11e72e,entity,['field_0'],,,,,,,
+uielement_5064f6,uielement,,input,Input 85,component_f9eda4,,,,
+uielement_992739,uielement,,input,Input 13,component_f9eda4,,,,
+action_1dc7c7,action,,,Action 58,,entity_267727,,,
+uielement_57f4a1,uielement,,dropdown,Dropdown 54,component_f9eda4,,,,
+uielement_c76071,uielement,,button,Button 14,component_f9eda4,,,,
+entity_1aff8e,entity,"['field_0', 'field_1', 'field_2']",,,,,,,
+component_05865b,component,,,,,,Component 57,,view_3ce667
+component_dbdf2d,component,,,,,,Component 3,,view_43af01
+action_e0299a,action,,,Action 35,,entity_267727,,,
+component_27579c,component,,,,,,Component 61,,view_43af01
+action_4271d9,action,,,Action 83,,entity_1aff8e,,,
+view_5a0779,view,,,,,,View 41,['rep'],
+view_e72b84,view,,,,,,View 34,['rep'],
+uielement_3d52f7,uielement,,dropdown,Dropdown 72,component_05865b,,,,
+entity_fdd657,entity,"['field_0', 'field_1', 'field_2']",,,,,,,
+view_180bc2,view,,,,,,View 40,['rep'],
+entity_72b10f,entity,['field_0'],,,,,,,
+view_c4c3d4,view,,,,,,View 71,['rep'],

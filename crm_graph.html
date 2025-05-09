@@ -1,0 +1,127 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 1000px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#ccccff", "font": {"color": "black"}, "id": "entity_267727", "label": "entity_267727", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027entity\u0027, \u0027fields\u0027: \"[\u0027field_0\u0027]\"}"}, {"color": "#66ff66", "font": {"color": "black"}, "id": "uielement_b98415", "label": "Dropdown 7", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027uielement\u0027, \u0027subtype\u0027: \u0027dropdown\u0027, \u0027label\u0027: \u0027Dropdown 7\u0027}"}, {"color": "#ff6666", "font": {"color": "black"}, "id": "action_6654f1", "label": "Action 30", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027action\u0027, \u0027label\u0027: \u0027Action 30\u0027, \u0027target_entity\u0027: \u0027entity_267727\u0027}"}, {"color": "#66ff66", "font": {"color": "black"}, "id": "uielement_2ea124", "label": "Input 63", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027uielement\u0027, \u0027subtype\u0027: \u0027input\u0027, \u0027label\u0027: \u0027Input 63\u0027}"}, {"color": "#ffcc00", "font": {"color": "black"}, "id": "view_3ce667", "label": "View 85", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027view\u0027, \u0027name\u0027: \u0027View 85\u0027, \u0027role_visibility\u0027: \"[\u0027finance\u0027]\"}"}, {"color": "#00ccff", "font": {"color": "black"}, "id": "component_f9eda4", "label": "Component 67", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027component\u0027, \u0027name\u0027: \u0027Component 67\u0027, \u0027parent_view\u0027: \u0027view_3ce667\u0027}"}, {"color": "#ff6666", "font": {"color": "black"}, "id": "action_be17c9", "label": "Action 83", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027action\u0027, \u0027label\u0027: \u0027Action 83\u0027, \u0027target_entity\u0027: \u0027entity_267727\u0027}"}, {"color": "#66ff66", "font": {"color": "black"}, "id": "uielement_dc01e6", "label": "Button 76", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027uielement\u0027, \u0027subtype\u0027: \u0027button\u0027, \u0027label\u0027: \u0027Button 76\u0027, \u0027parent_component\u0027: \u0027component_f9eda4\u0027}"}, {"color": "#ffcc00", "font": {"color": "black"}, "id": "view_ff58af", "label": "View 89", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027view\u0027, \u0027name\u0027: \u0027View 89\u0027, \u0027role_visibility\u0027: \"[\u0027sales\u0027, \u0027admin\u0027]\"}"}, {"color": "#ff6666", "font": {"color": "black"}, "id": "action_e83954", "label": "Action 31", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027action\u0027, \u0027label\u0027: \u0027Action 31\u0027, \u0027target_entity\u0027: \u0027entity_267727\u0027}"}, {"color": "#ffcc00", "font": {"color": "black"}, "id": "view_43af01", "label": "View 96", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027view\u0027, \u0027name\u0027: \u0027View 96\u0027, \u0027role_visibility\u0027: \"[\u0027finance\u0027, \u0027sales\u0027]\"}"}, {"color": "#ccccff", "font": {"color": "black"}, "id": "entity_11e72e", "label": "entity_11e72e", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027entity\u0027, \u0027fields\u0027: \"[\u0027field_0\u0027]\"}"}, {"color": "#66ff66", "font": {"color": "black"}, "id": "uielement_5064f6", "label": "Input 85", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027uielement\u0027, \u0027subtype\u0027: \u0027input\u0027, \u0027label\u0027: \u0027Input 85\u0027, \u0027parent_component\u0027: \u0027component_f9eda4\u0027}"}, {"color": "#66ff66", "font": {"color": "black"}, "id": "uielement_992739", "label": "Input 13", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027uielement\u0027, \u0027subtype\u0027: \u0027input\u0027, \u0027label\u0027: \u0027Input 13\u0027, \u0027parent_component\u0027: \u0027component_f9eda4\u0027}"}, {"color": "#ff6666", "font": {"color": "black"}, "id": "action_1dc7c7", "label": "Action 58", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027action\u0027, \u0027label\u0027: \u0027Action 58\u0027, \u0027target_entity\u0027: \u0027entity_267727\u0027}"}, {"color": "#66ff66", "font": {"color": "black"}, "id": "uielement_57f4a1", "label": "Dropdown 54", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027uielement\u0027, \u0027subtype\u0027: \u0027dropdown\u0027, \u0027label\u0027: \u0027Dropdown 54\u0027, \u0027parent_component\u0027: \u0027component_f9eda4\u0027}"}, {"color": "#66ff66", "font": {"color": "black"}, "id": "uielement_c76071", "label": "Button 14", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027uielement\u0027, \u0027subtype\u0027: \u0027button\u0027, \u0027label\u0027: \u0027Button 14\u0027, \u0027parent_component\u0027: \u0027component_f9eda4\u0027}"}, {"color": "#ccccff", "font": {"color": "black"}, "id": "entity_1aff8e", "label": "entity_1aff8e", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027entity\u0027, \u0027fields\u0027: \"[\u0027field_0\u0027, \u0027field_1\u0027, \u0027field_2\u0027]\"}"}, {"color": "#00ccff", "font": {"color": "black"}, "id": "component_05865b", "label": "Component 57", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027component\u0027, \u0027name\u0027: \u0027Component 57\u0027, \u0027parent_view\u0027: \u0027view_3ce667\u0027}"}, {"color": "#00ccff", "font": {"color": "black"}, "id": "component_dbdf2d", "label": "Component 3", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027component\u0027, \u0027name\u0027: \u0027Component 3\u0027, \u0027parent_view\u0027: \u0027view_43af01\u0027}"}, {"color": "#ff6666", "font": {"color": "black"}, "id": "action_e0299a", "label": "Action 35", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027action\u0027, \u0027label\u0027: \u0027Action 35\u0027, \u0027target_entity\u0027: \u0027entity_267727\u0027}"}, {"color": "#00ccff", "font": {"color": "black"}, "id": "component_27579c", "label": "Component 61", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027component\u0027, \u0027name\u0027: \u0027Component 61\u0027, \u0027parent_view\u0027: \u0027view_43af01\u0027}"}, {"color": "#ff6666", "font": {"color": "black"}, "id": "action_4271d9", "label": "Action 83", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027action\u0027, \u0027label\u0027: \u0027Action 83\u0027, \u0027target_entity\u0027: \u0027entity_1aff8e\u0027}"}, {"color": "#ffcc00", "font": {"color": "black"}, "id": "view_5a0779", "label": "View 41", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027view\u0027, \u0027name\u0027: \u0027View 41\u0027, \u0027role_visibility\u0027: \"[\u0027rep\u0027]\"}"}, {"color": "#ffcc00", "font": {"color": "black"}, "id": "view_e72b84", "label": "View 34", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027view\u0027, \u0027name\u0027: \u0027View 34\u0027, \u0027role_visibility\u0027: \"[\u0027rep\u0027]\"}"}, {"color": "#66ff66", "font": {"color": "black"}, "id": "uielement_3d52f7", "label": "Dropdown 72", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027uielement\u0027, \u0027subtype\u0027: \u0027dropdown\u0027, \u0027label\u0027: \u0027Dropdown 72\u0027, \u0027parent_component\u0027: \u0027component_05865b\u0027}"}, {"color": "#ccccff", "font": {"color": "black"}, "id": "entity_fdd657", "label": "entity_fdd657", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027entity\u0027, \u0027fields\u0027: \"[\u0027field_0\u0027, \u0027field_1\u0027, \u0027field_2\u0027]\"}"}, {"color": "#ffcc00", "font": {"color": "black"}, "id": "view_180bc2", "label": "View 40", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027view\u0027, \u0027name\u0027: \u0027View 40\u0027, \u0027role_visibility\u0027: \"[\u0027rep\u0027]\"}"}, {"color": "#ccccff", "font": {"color": "black"}, "id": "entity_72b10f", "label": "entity_72b10f", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027entity\u0027, \u0027fields\u0027: \"[\u0027field_0\u0027]\"}"}, {"color": "#ffcc00", "font": {"color": "black"}, "id": "view_c4c3d4", "label": "View 71", "shape": "dot", "size": 20, "title": "{\u0027type\u0027: \u0027view\u0027, \u0027name\u0027: \u0027View 71\u0027, \u0027role_visibility\u0027: \"[\u0027rep\u0027]\"}"}]);
+                  edges = new vis.DataSet([{"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "uielement_2ea124", "label": "triggers", "smooth": {"type": "continuous"}, "title": "triggers", "to": "action_e83954"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "uielement_2ea124", "label": "triggers", "smooth": {"type": "continuous"}, "title": "triggers", "to": "action_be17c9"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "uielement_2ea124", "label": "binds", "smooth": {"type": "continuous"}, "title": "binds", "to": "entity_267727"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "uielement_2ea124", "label": "binds", "smooth": {"type": "continuous"}, "title": "binds", "to": "entity_72b10f"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "view_3ce667", "label": "writes", "smooth": {"type": "continuous"}, "title": "writes", "to": "entity_72b10f"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "view_3ce667", "label": "writes", "smooth": {"type": "continuous"}, "title": "writes", "to": "entity_72b10f"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "view_3ce667", "label": "contains", "smooth": {"type": "continuous"}, "title": "contains", "to": "component_05865b"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "view_3ce667", "label": "navigates_to", "smooth": {"type": "continuous"}, "title": "navigates_to", "to": "view_ff58af"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "view_3ce667", "label": "navigates_to", "smooth": {"type": "continuous"}, "title": "navigates_to", "to": "view_ff58af"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "uielement_dc01e6", "label": "triggers", "smooth": {"type": "continuous"}, "title": "triggers", "to": "action_be17c9"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "view_ff58af", "label": "contains", "smooth": {"type": "continuous"}, "title": "contains", "to": "component_27579c"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "view_43af01", "label": "writes", "smooth": {"type": "continuous"}, "title": "writes", "to": "entity_267727"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "uielement_5064f6", "label": "binds", "smooth": {"type": "continuous"}, "title": "binds", "to": "entity_fdd657"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "uielement_5064f6", "label": "binds", "smooth": {"type": "continuous"}, "title": "binds", "to": "entity_1aff8e"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "action_1dc7c7", "label": "performs", "smooth": {"type": "continuous"}, "title": "performs", "to": "entity_11e72e"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "uielement_57f4a1", "label": "binds", "smooth": {"type": "continuous"}, "title": "binds", "to": "entity_267727"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "uielement_c76071", "label": "triggers", "smooth": {"type": "continuous"}, "title": "triggers", "to": "action_be17c9"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "uielement_c76071", "label": "triggers", "smooth": {"type": "continuous"}, "title": "triggers", "to": "action_6654f1"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "uielement_c76071", "label": "triggers", "smooth": {"type": "continuous"}, "title": "triggers", "to": "action_4271d9"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "uielement_c76071", "label": "triggers", "smooth": {"type": "continuous"}, "title": "triggers", "to": "action_e0299a"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "component_05865b", "label": "reads", "smooth": {"type": "continuous"}, "title": "reads", "to": "entity_1aff8e"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "component_05865b", "label": "writes", "smooth": {"type": "continuous"}, "title": "writes", "to": "entity_1aff8e"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "component_05865b", "label": "writes", "smooth": {"type": "continuous"}, "title": "writes", "to": "entity_fdd657"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "action_e0299a", "label": "performs", "smooth": {"type": "continuous"}, "title": "performs", "to": "entity_267727"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "action_e0299a", "label": "performs", "smooth": {"type": "continuous"}, "title": "performs", "to": "entity_72b10f"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "action_4271d9", "label": "performs", "smooth": {"type": "continuous"}, "title": "performs", "to": "entity_1aff8e"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "action_4271d9", "label": "performs", "smooth": {"type": "continuous"}, "title": "performs", "to": "entity_11e72e"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "view_5a0779", "label": "contains", "smooth": {"type": "continuous"}, "title": "contains", "to": "component_27579c"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "view_5a0779", "label": "contains", "smooth": {"type": "continuous"}, "title": "contains", "to": "component_05865b"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "view_5a0779", "label": "writes", "smooth": {"type": "continuous"}, "title": "writes", "to": "entity_267727"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "uielement_3d52f7", "label": "triggers", "smooth": {"type": "continuous"}, "title": "triggers", "to": "action_1dc7c7"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "view_180bc2", "label": "writes", "smooth": {"type": "continuous"}, "title": "writes", "to": "entity_fdd657"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "view_180bc2", "label": "reads", "smooth": {"type": "continuous"}, "title": "reads", "to": "entity_fdd657"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "view_180bc2", "label": "writes", "smooth": {"type": "continuous"}, "title": "writes", "to": "entity_fdd657"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "view_180bc2", "label": "contains", "smooth": {"type": "continuous"}, "title": "contains", "to": "component_f9eda4"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "view_180bc2", "label": "contains", "smooth": {"type": "continuous"}, "title": "contains", "to": "component_f9eda4"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "view_180bc2", "label": "navigates_to", "smooth": {"type": "continuous"}, "title": "navigates_to", "to": "view_3ce667"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "view_180bc2", "label": "writes", "smooth": {"type": "continuous"}, "title": "writes", "to": "entity_72b10f"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "view_c4c3d4", "label": "reads", "smooth": {"type": "continuous"}, "title": "reads", "to": "entity_fdd657"}, {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "font": {"size": 12}, "from": "view_c4c3d4", "label": "writes", "smooth": {"type": "continuous"}, "title": "writes", "to": "entity_72b10f"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {"physics": {"barnesHut": {"gravitationalConstant": -2000, "centralGravity": 0.3, "springLength": 200, "springConstant": 0.04, "damping": 0.09, "avoidOverlap": 1}, "maxVelocity": 50, "minVelocity": 0.1, "solver": "barnesHut", "stabilization": {"enabled": true, "iterations": 1000, "updateInterval": 25, "onlyDynamicEdges": false, "fit": true}}, "nodes": {"font": {"size": 14, "face": "arial"}, "shape": "dot", "size": 20}, "edges": {"font": {"size": 12, "face": "arial"}, "smooth": {"type": "continuous"}, "arrows": {"to": {"enabled": true, "scaleFactor": 1}}}};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
