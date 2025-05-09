@@ -87,4 +87,4 @@ def generate_crm_graph(num_nodes: int, num_edges: int) -> Tuple[nx.MultiDiGraph,
 
 # Run the generator
 if __name__ == "__main__":
-    generate_crm_graph(num_nodes=30, num_edges=40)
+    generate_crm_graph(num_nodes=3, num_edges=2)

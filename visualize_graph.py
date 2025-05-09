@@ -27,60 +27,22 @@ def load_graph_from_csv(nodes_path="nodes.csv", edges_path="edges.csv") -> nx.Mu
 def visualize_graph(G: nx.MultiDiGraph, output_html="crm_graph.html"):
     # Create a new Network instance with explicit parameters
     net = Network(
-        height="1000px",  # Increased height
+        height="100vh",
         width="100%",
         notebook=False,
         directed=True,
         bgcolor="#ffffff",
-        font_color="black",
-        layout=True
+        font_color="black"
     )
     
-    # Configure physics settings for better spacing
+    # Compute node positions using spring layout
+    pos = nx.spring_layout(G, k=2, iterations=100, seed=42)  # k controls spacing
+
+    # Disable physics for a static layout
     net.set_options("""
     {
         "physics": {
-            "barnesHut": {
-                "gravitationalConstant": -2000,
-                "centralGravity": 0.3,
-                "springLength": 200,
-                "springConstant": 0.04,
-                "damping": 0.09,
-                "avoidOverlap": 1
-            },
-            "maxVelocity": 50,
-            "minVelocity": 0.1,
-            "solver": "barnesHut",
-            "stabilization": {
-                "enabled": true,
-                "iterations": 1000,
-                "updateInterval": 25,
-                "onlyDynamicEdges": false,
-                "fit": true
-            }
-        },
-        "nodes": {
-            "font": {
-                "size": 14,
-                "face": "arial"
-            },
-            "shape": "dot",
-            "size": 20
-        },
-        "edges": {
-            "font": {
-                "size": 12,
-                "face": "arial"
-            },
-            "smooth": {
-                "type": "continuous"
-            },
-            "arrows": {
-                "to": {
-                    "enabled": true,
-                    "scaleFactor": 1
-                }
-            }
+            "enabled": false
         }
     }
     """)
@@ -95,15 +57,17 @@ def visualize_graph(G: nx.MultiDiGraph, output_html="crm_graph.html"):
             'action': '#ff6666',
             'entity': '#ccccff'
         }.get(attrs.get("type"), '#dddddd')
-
-        # Add nodes with more spacing
+        x, y = pos[node]
         net.add_node(
             node,
             label=label,
             title=str(attrs),
             color=color,
             font={'size': 14},
-            size=20
+            size=20,
+            x=float(x)*1000,  # scale up for better spacing
+            y=float(y)*1000,
+            fixed=True
         )
 
     # Add edges with improved visibility
